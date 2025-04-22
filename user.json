@@ -1,0 +1,83 @@
+{
+  "users": {
+    "user1@example.com": {
+      "id": "user1",
+      "name": "John Smith",
+      "email": "user1@example.com",
+      "password": "password123",
+      "phone": "+94771234567",
+      "points": 130,
+      "totalEarned": 200,
+      "paymentHistory": [
+        { 
+          "date": "2025-01-15", 
+          "amount": 100, 
+          "method": "Bank Transfer", 
+          "status": "Completed",
+          "details": {
+            "bankName": "Commercial Bank",
+            "accountNumber": "1234567890",
+            "accountHolder": "John Smith"
+          }
+        },
+        { 
+          "date": "2025-02-20", 
+          "amount": 100, 
+          "method": "eZ Cash", 
+          "status": "Completed",
+          "details": {
+            "ezcashNumber": "+94771234567"
+          }
+        }
+      ],
+      "referrals": [
+        { "name": "Alice Johnson", "date": "2025-01-10", "status": "Completed", "points": 10 },
+        { "name": "Bob Williams", "date": "2025-02-15", "status": "Completed", "points": 10 }
+      ],
+      "referralCode": "JOHN123"
+    },
+    "user2@example.com": {
+      "id": "user2",
+      "name": "Alice Johnson",
+      "email": "user2@example.com",
+      "password": "securepass",
+      "phone": "+94772345678",
+      "points": 50,
+      "totalEarned": 0,
+      "paymentHistory": [],
+      "referrals": [
+        { "name": "Charlie Brown", "date": "2025-03-05", "status": "Completed", "points": 10 },
+        { "name": "David Lee", "date": "2025-03-12", "status": "Completed", "points": 10 },
+        { "name": "Emma Wilson", "date": "2025-03-20", "status": "Pending", "points": 0 }
+      ],
+      "referralCode": "ALIC5678"
+    },
+    "user3@example.com": {
+      "id": "user3",
+      "name": "Bob Williams",
+      "email": "user3@example.com",
+      "password": "bobpass123",
+      "phone": "+94773456789",
+      "points": 210,
+      "totalEarned": 100,
+      "paymentHistory": [
+        {
+          "date": "2025-02-10",
+          "amount": 100,
+          "method": "mCash",
+          "status": "Completed",
+          "details": {
+            "mcashNumber": "+94773456789"
+          }
+        }
+      ],
+      "referrals": [
+        { "name": "Frank Miller", "date": "2025-01-25", "status": "Completed", "points": 10 },
+        { "name": "Grace Taylor", "date": "2025-02-03", "status": "Completed", "points": 10 },
+        { "name": "Henry Davis", "date": "2025-02-17", "status": "Completed", "points": 10 },
+        { "name": "Ivy Martin", "date": "2025-03-01", "status": "Completed", "points": 10 }
+      ],
+      "referralCode": "BOBW7890"
+    }
+  }
+}
