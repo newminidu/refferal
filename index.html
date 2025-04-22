@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messageium Referral Program</title>
+  <style>
+    :root {
+      --primary-color: #4361ee;
+      --secondary-color: #3f37c9;
+      --accent-color: #4cc9f0;
+      --text-color: #2b2d42;
+      --light-text: #8d99ae;
+      --bg-color: #f8f9fa;
+      --white: #ffffff;
+      --success: #4ade80;
+      --warning: #fbbf24;
+      --error: #f87171;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+    
+    .logo {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+    
+    .tagline {
+      font-size: 1.2rem;
+      color: var(--light-text);
+      max-width: 600px;
+    }
+    
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: var(--white);
+      border-radius: 12px;
+      padding: 3rem 2rem;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+    
+    .hero-title {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+    
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--light-text);
+      margin-bottom: 2rem;
+      max-width: 600px;
+    }
+    
+    .rewards-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    .reward-card {
+      background-color: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      width: 100%;
+      max-width: 350px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    
+    .reward-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .reward-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+    
+    .reward-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+    
+    .reward-desc {
+      color: var(--light-text);
+      margin-bottom: 1.5rem;
+    }
+    
+    .referral-section {
+      background-color: var(--white);
+      border-radius: 12px;
+      padding: 3rem 2rem;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+    
+    .section-title {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
+    }
+    
+    .auth-container {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    
+    input {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      transition: border-color 0.3s;
+    }
+    
+    input:focus {
+      border-color: var(--primary-color);
+      outline: none;
+    }
+    
+    button {
+      background-color: var(--primary-color);
+      color: var(--white);
+      border: none;
+      border-radius: 6px;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    button:hover {
+      background-color: var(--secondary-color);
+    }
+    
+    .btn-secondary {
+      background-color: var(--light-text);
+    }
+    
+    .btn-secondary:hover {
+      background-color: #7a8599;
+    }
+    
+    .referral-link-container {
+      display: flex;
+      align-items: center;
+      margin: 1.5rem 0;
+      position: relative;
+    }
+    
+    .referral-link {
+      flex: 1;
+      padding: 0.75rem;
+      font-size: 0.9rem;
+      background-color: #f0f2f5;
+      border: 1px solid #ddd;
+      border-radius: 6px 0 0 6px;
+      font-family: monospace;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    
+    .copy-btn {
+      border-radius: 0 6px 6px 0;
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+      background-color: var(--light-text);
+    }
+    
+    .how-it-works {
+      margin-bottom: 3rem;
+    }
+    
+    .steps-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .step-card {
+      background-color: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      width: 100%;
+      max-width: 250px;
+      text-align: center;
+      position: relative;
+    }
+    
+    .step-number {
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--primary-color);
+      color: var(--white);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    
+    .step-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 1rem 0;
+      color: var(--primary-color);
+    }
+    
+    .step-desc {
+      color: var(--light-text);
+      font-size: 0.9rem;
+    }
+    
+    .stats-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .stat-card {
+      background-color: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      width: 100%;
+      max-width: 200px;
+      text-align: center;
+    }
+    
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+    
+    .stat-label {
+      color: var(--light-text);
+      margin-top: 0.5rem;
+    }
+    
+    .alert {
+      padding: 1rem;
+      border-radius: 6px;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    
+    .alert-success {
+      background-color: rgba(74, 222, 128, 0.2);
+      color: #166534;
+    }
+    
+    .alert-error {
+      background-color: rgba(248, 113, 113, 0.2);
+      color: #b91c1c;
+    }
+    
+    .social-share {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    .social-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 1.2rem;
+      transition: transform 0.3s;
+    }
+    
+    .social-btn:hover {
+      transform: scale(1.1);
+    }
+    
+    .facebook {
+      background-color: #1877f2;
+    }
+    
+    .twitter {
+      background-color: #1da1f2;
+    }
+    
+    .whatsapp {
+      background-color: #25d366;
+    }
+    
+    .linkedin {
+      background-color: #0077b5;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    .referral-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2rem;
+    }
+    
+    .referral-table th,
+    .referral-table td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    .referral-table th {
+      background-color: #f9fafb;
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      color: var(--light-text);
+    }
+    
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    
+    .tab {
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.3s;
+    }
+    
+    .tab.active {
+      border-bottom: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      font-weight: 500;
+    }
+    
+    .tab-content {
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+      
+      .hero, .referral-section {
+        padding: 2rem 1rem;
+      }
+      
+      .referral-link-container {
+        flex-direction: column;
+      }
+      
+      .referral-link {
+        border-radius: 6px;
+        margin-bottom: 0.5rem;
+      }
+      
+      .copy-btn {
+        border-radius: 6px;
+        width: 100%;
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">Messageium</div>
+      <p class="tagline">Share the joy of messaging. Earn rewards for every friend who joins.</p>
+    </header>
+    
+    <div class="hero">
+      <h1 class="hero-title">Invite Friends. Earn Rewards.</h1>
+      <p class="hero-subtitle">For every friend that joins Messageium using your referral link, both of you get premium features and special rewards!</p>
+      <button id="get-started-btn">Get Your Referral Link</button>
+    </div>
+    
+    <div class="rewards-container">
+      <div class="reward-card">
+        <div class="reward-icon"><i class="fas fa-crown"></i></div>
+        <h3 class="reward-title">7 Days Premium</h3>
+        <p class="reward-desc">For each successful referral, get 7 days of premium features including ad-free experience and exclusive themes.</p>
+      </div>
+      
+      <div class="reward-card">
+        <div class="reward-icon"><i class="fas fa-gem"></i></div>
+        <h3 class="reward-title">200 Coins</h3>
+        <p class="reward-desc">Earn 200 Messageium coins for each friend who joins. Use them for stickers, emojis, and other in-app purchases.</p>
+      </div>
+      
+      <div class="reward-card">
+        <div class="reward-icon"><i class="fas fa-medal"></i></div>
+        <h3 class="reward-title">Special Badges</h3>
+        <p class="reward-desc">Unlock exclusive profile badges after referring 5, 10, and 25 friends to showcase your referral status.</p>
+      </div>
+    </div>
+    
+    <div id="auth-container" class="referral-section hidden">
+      <div class="tabs">
+        <div class="tab active" data-tab="login">Login</div>
+        <div class="tab" data-tab="register">Register</div>
+      </div>
+      
+      <div id="login-tab" class="tab-content active">
+        <h2 class="section-title">Login to Get Your Referral Link</h2>
+        <div id="login-alert" class="alert hidden"></div>
+        <div class="auth-container">
+          <form id="login-form">
+            <div class="form-group">
+              <label for="login-username">Username or Email</label>
+              <input type="text" id="login-username" required>
+            </div>
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <input type="password" id="login-password" required>
+            </div>
+            <button type="submit">Login</button>
+          </form>
+        </div>
+      </div>
+      
+      <div id="register-tab" class="tab-content">
+        <h2 class="section-title">Create an Account</h2>
+        <div id="register-alert" class="alert hidden"></div>
+        <div class="auth-container">
+          <form id="register-form">
+            <div class="form-group">
+              <label for="register-username">Username</label>
+              <input type="text" id="register-username" required>
+            </div>
+            <div class="form-group">
+              <label for="register-email">Email</label>
+              <input type="email" id="register-email" required>
+            </div>
+            <div class="form-group">
+              <label for="register-password">Password</label>
+              <input type="password" id="register-password" required>
+            </div>
+            <div class="form-group">
+              <label for="referral-code">Referral Code (optional)</label>
+              <input type="text" id="referral-code">
+            </div>
+            <button type="submit">Register</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <div id="dashboard-container" class="referral-section hidden">
+      <h2 class="section-title">Your Referral Dashboard</h2>
+      <div id="dashboard-alert" class="alert hidden"></div>
+      
+      <div class="stats-container">
+        <div class="stat-card">
+          <div class="stat-value" id="referrals-count">0</div>
+          <div class="stat-label">Total Referrals</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-value" id="rewards-count">0</div>
+          <div class="stat-label">Rewards Earned</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-value" id="premium-days">0</div>
+          <div class="stat-label">Premium Days</div>
+        </div>
+      </div>
+      
+      <h3 style="margin-top: 2rem;">Your Referral Link</h3>
+      <div class="referral-link-container">
+        <div class="referral-link" id="referral-link"></div>
+        <button class="copy-btn" id="copy-link-btn">Copy</button>
+      </div>
+      
+      <div class="social-share">
+        <a href="#" class="social-btn facebook" id="share-facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-btn twitter" id="share-twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="social-btn whatsapp" id="share-whatsapp"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" class="social-btn linkedin" id="share-linkedin"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+      
+      <h3 style="margin-top: 2rem;">Your Referrals</h3>
+      <table class="referral-table">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Date Joined</th>
+            <th>Status</th>
+            <th>Reward</th>
+          </tr>
+        </thead>
+        <tbody id="referrals-table">
+          <!-- Will be populated with JS -->
+        </tbody>
+      </table>
+      
+      <button id="logout-btn" style="margin-top: 2rem;">Logout</button>
+    </div>
+    
+    <div class="how-it-works">
+      <h2 class="section-title" style="text-align: center;">How It Works</h2>
+      <div class="steps-container">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Get Your Link</h3>
+          <p class="step-desc">Login to your Messageium account and get your unique referral link.</p>
+        </div>
+        
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Share With Friends</h3>
+          <p class="step-desc">Share your link via social media, email, or direct messages.</p>
+        </div>
+        
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Friends Join</h3>
+          <p class="step-desc">When your friends click on your link and join Messageium.</p>
+        </div>
+        
+        <div class="step-card">
+          <div class="step-number">4</div>
+          <h3 class="step-title">Earn Rewards</h3>
+          <p class="step-desc">Both you and your friend receive rewards automatically!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer>
+    <p>&copy; 2025 Messageium. All rights reserved.</p>
+  </footer>
+  
+  <script>
+    // Simulated API/Database
+    class ReferralAPI {
+      static baseURL = 'https://messageium.com/api';  // Replace with your actual API base URL
+      
+      // In a real implementation, these would be actual API calls
+      static async login(username, password) {
+        // Simulating an API call
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            // Simulate database lookup
+            const users = this.getUsers();
+            const user = users.find(u => (u.username === username || u.email === username) && u.password === password);
+            
+            if (user) {
+              resolve({
+                success: true,
+                user: {
+                  id: user.id,
+                  username: user.username,
+                  email: user.email,
+                  referralCode: user.referralCode,
+                  referrals: user.referrals || [],
+                  rewards: user.rewards || 0,
+                  premiumDays: user.premiumDays || 0
+                }
+              });
+            } else {
+              reject({
+                success: false,
+                message: 'Invalid username or password'
+              });
+            }
+          }, 500);
+        });
+      }
+      
+      static async register(username, email, password, referralCode = null) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            const users = this.getUsers();
+            
+            // Check if username or email already exists
+            if (users.some(u => u.username === username)) {
+              reject({
+                success: false,
+                message: 'Username already exists'
+              });
+              return;
+            }
+            
+            if (users.some(u => u.email === email)) {
+              reject({
+                success: false,
+                message: 'Email already exists'
+              });
+              return;
+            }
+            
+            // Create new user
+            const newUser = {
+              id: Date.now().toString(),
+              username,
+              email,
+              password,
+              referralCode: this.generateReferralCode(username),
+              referrals: [],
+              rewards: 0,
+              premiumDays: 0,
+              joinDate: new Date().toISOString()
+            };
+            
+            // Handle referral if code was provided
+            let referrer = null;
+            if (referralCode) {
+              referrer = users.find(u => u.referralCode === referralCode);
+              if (referrer) {
+                // Update referrer
+                referrer.referrals = referrer.referrals || [];
+                referrer.referrals.push({
+                  userId: newUser.id,
+                  username: newUser.username,
+                  joinDate: newUser.joinDate,
+                  status: 'completed'
+                });
+                
+                // Award rewards to referrer
+                referrer.rewards = (referrer.rewards || 0) + 200;
+                referrer.premiumDays = (referrer.premiumDays || 0) + 7;
+                
+                // Award rewards to new user
+                newUser.rewards = 100;
+                newUser.premiumDays = 3;
+                newUser.referredBy = referrer.id;
+                
+                // Update referrer in "database"
+                const referrerIndex = users.findIndex(u => u.id === referrer.id);
+                if (referrerIndex !== -1) {
+                  users[referrerIndex] = referrer;
+                }
+              }
+            }
+            
+            // Save new user
+            users.push(newUser);
+            this.saveUsers(users);
+            
+            resolve({
+              success: true,
+              user: {
+                id: newUser.id,
+                username: newUser.username,
+                email: newUser.email,
+                referralCode: newUser.referralCode,
+                referrals: [],
+                rewards: newUser.rewards,
+                premiumDays: newUser.premiumDays
+              },
+              wasReferred: referrer !== null
+            });
+          }, 500);
+        });
+      }
+      
+      static async getUserReferrals(userId) {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            const users = this.getUsers();
+            const user = users.find(u => u.id === userId);
+            
+            if (user && user.referrals) {
+              resolve({
+                success: true,
+                referrals: user.referrals
+              });
+            } else {
+              resolve({
+                success: true,
+                referrals: []
+              });
+            }
+          }, 300);
+        });
+      }
+      
+      static generateReferralCode(username) {
+        const randomStr = Math.random().toString(36).substring(2, 8);
+        return `${username.substring(0, 3)}${randomStr}`.toLowerCase();
+      }
+      
+      // Local storage methods (simulating database)
+      static getUsers() {
+        return JSON.parse(localStorage.getItem('messageium_users')) || [];
+      }
+      
+      static saveUsers(users) {
+        localStorage.setItem('messageium_users', JSON.stringify(users));
+      }
+      
+      static getCurrentUser() {
+        return JSON.parse(localStorage.getItem('messageium_current_user')) || null;
+      }
+      
+      static setCurrentUser(user) {
+        localStorage.setItem('messageium_current_user', JSON.stringify(user));
+      }
+      
+      static clearCurrentUser() {
+        localStorage.removeItem('messageium_current_user');
+      }
+    }
+    
+    // Helper functions
+    function showAlert(elementId, message, type) {
+      const alertElement = document.getElementById(elementId);
+      alertElement.textContent = message;
+      alertElement.className = `alert alert-${type}`;
+      alertElement.classList.remove('hidden');
+      
+      setTimeout(() => {
+        alertElement.classList.add('hidden');
+      }, 5000);
+    }
+    
+    function switchTab(tabId) {
+      // Hide all tab contents
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      
+      // Deactivate all tabs
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      
+      // Activate selected tab
+      document.getElementById(`${tabId}-tab`).classList.add('active');
+      document.querySelector(`.tab[data-tab="${tabId}"]`).classList.add('active');
+    }
+    
+    function updateDashboard(user) {
+      document.getElementById('referrals-count').textContent = user.referrals.length;
+      document.getElementById('rewards-count').textContent = user.rewards;
+      document.getElementById('premium-days').textContent = user.premiumDays;
+      
+      // Set referral link
+      const referralLink = `https://referral.messageium.com/?ref=${user.referralCode}`;
+      document.getElementById('referral-link').textContent = referralLink;
+      
+      // Update social share links
+      const shareText = encodeURIComponent('Join me on Messageium! Use my referral link to get 3 days of premium features and 100 coins: ');
+      document.getElementById('share-facebook').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(referralLink)}`;
+      document.getElementById('share-twitter').href = `https://twitter.com/intent/tweet?text=${shareText}&url=${encodeURIComponent(referralLink)}`;
+      document.getElementById('share-whatsapp').href = `https://wa.me/?text=${shareText}${encodeURIComponent(referralLink)}`;
+      document.getElementById('share-linkedin').href = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(referralLink)}`;
+      
+      // Populate referrals table
+      const referralsTable = document.getElementById('referrals-table');
+      referralsTable.innerHTML = '';
+      
+      if (user.referrals.length === 0) {
+        const row = document.createElement('tr');
+        const cell = document.createElement('td');
+        cell.colSpan = 4;
+        cell.textContent = 'You have no referrals yet. Share your link to start earning rewards!';
+        cell.style.textAlign = 'center';
+        row.appendChild(cell);
+        referralsTable.appendChild(row);
+      } else {
+        user.referrals.forEach(referral => {
+          const row = document.createElement('tr');
+          
+          const usernameCell = document.createElement('td');
+          usernameCell.textContent = referral.username;
+          
+          const dateCell = document.createElement('td');
+          dateCell.textContent = new Date(referral.joinDate).toLocaleDateString();
+          
+          const statusCell = document.createElement('td');
+          statusCell.textContent = referral.status;
+          if (referral.status === 'completed') {
+            statusCell.style.color = '#4ade80';
+          }
+          
+          const rewardCell = document.createElement('td');
+          rewardCell.textContent = '200 coins + 7 days premium';
+          
+          row.appendChild(usernameCell);
+          row.appendChild(dateCell);
+          row.appendChild(statusCell);
+          row.appendChild(rewardCell);
+          
+          referralsTable.appendChild(row);
+        });
+      }
+    }
+    
+    function showAuthOrDashboard() {
+      const currentUser = ReferralAPI.getCurrentUser();
+      
+      if (currentUser) {
+        // Hide auth container, show dashboard
+        document.getElementById('auth-container').classList.add('hidden');
+        document.getElementById('dashboard-container').classList.remove('hidden');
+        
+        // Update dashboard with user data
+        ReferralAPI.getUserReferrals(currentUser.id).then(response => {
+          if (response.success) {
+            currentUser.referrals = response.referrals;
+            updateDashboard(currentUser);
+          }
+        });
+      } else {
+        // Hide dashboard, show auth
+        document.getElementById('dashboard-container').classList.add('hidden');
+        document.getElementById('auth-container').classList.remove('hidden');
+      }
+    }
+    
+    function checkRefCodeInUrl() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const refCode = urlParams.get('ref');
+      
+      if (refCode) {
+        document.getElementById('referral-code').value = refCode;
+        // Switch to register tab if there// Switch to register tab if there's a referral code in URL
+        switchTab('register');
+      }
+    }
+    
+    // Event Listeners
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initial setup
+      showAuthOrDashboard();
+      checkRefCodeInUrl();
+      
+      // Get started button
+      document.getElementById('get-started-btn').addEventListener('click', () => {
+        document.getElementById('auth-container').scrollIntoView({ behavior: 'smooth' });
+      });
+      
+      // Tab switching
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          switchTab(tab.getAttribute('data-tab'));
+        });
+      });
+      
+      // Login form
+      document.getElementById('login-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const username = document.getElementById('login-username').value;
+        const password = document.getElementById('login-password').value;
+        
+        ReferralAPI.login(username, password)
+          .then(response => {
+            if (response.success) {
+              ReferralAPI.setCurrentUser(response.user);
+              showAuthOrDashboard();
+              showAlert('dashboard-alert', 'Successfully logged in!', 'success');
+            }
+          })
+          .catch(error => {
+            showAlert('login-alert', error.message, 'error');
+          });
+      });
+      
+      // Register form
+      document.getElementById('register-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const username = document.getElementById('register-username').value;
+        const email = document.getElementById('register-email').value;
+        const password = document.getElementById('register-password').value;
+        const referralCode = document.getElementById('referral-code').value;
+        
+        ReferralAPI.register(username, email, password, referralCode)
+          .then(response => {
+            if (response.success) {
+              ReferralAPI.setCurrentUser(response.user);
+              showAuthOrDashboard();
+              
+              if (response.wasReferred) {
+                showAlert('dashboard-alert', 'Account created! You received 100 coins and 3 days of premium for being referred!', 'success');
+              } else {
+                showAlert('dashboard-alert', 'Account created successfully!', 'success');
+              }
+            }
+          })
+          .catch(error => {
+            showAlert('register-alert', error.message, 'error');
+          });
+      });
+      
+      // Copy referral link
+      document.getElementById('copy-link-btn').addEventListener('click', () => {
+        const referralLink = document.getElementById('referral-link').textContent;
+        navigator.clipboard.writeText(referralLink)
+          .then(() => {
+            document.getElementById('copy-link-btn').textContent = 'Copied!';
+            setTimeout(() => {
+              document.getElementById('copy-link-btn').textContent = 'Copy';
+            }, 2000);
+          })
+          .catch(err => {
+            showAlert('dashboard-alert', 'Failed to copy link: ' + err, 'error');
+          });
+      });
+      
+      // Logout
+      document.getElementById('logout-btn').addEventListener('click', () => {
+        ReferralAPI.clearCurrentUser();
+        showAuthOrDashboard();
+      });
+      
+      // Social share links
+      document.querySelectorAll('.social-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.open(btn.href, 'share', 'width=600,height=400');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
