@@ -1,998 +1,1337 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Messageium Referral Program</title>
-  <style>
-    :root {
-      --primary-color: #4361ee;
-      --secondary-color: #3f37c9;
-      --accent-color: #4cc9f0;
-      --text-color: #2b2d42;
-      --light-text: #8d99ae;
-      --bg-color: #f8f9fa;
-      --white: #ffffff;
-      --success: #4ade80;
-      --warning: #fbbf24;
-      --error: #f87171;
-    }
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
-    
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      line-height: 1.6;
-    }
-    
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-    
-    header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 3rem;
-      text-align: center;
-    }
-    
-    .logo {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: var(--primary-color);
-      margin-bottom: 0.5rem;
-    }
-    
-    .tagline {
-      font-size: 1.2rem;
-      color: var(--light-text);
-      max-width: 600px;
-    }
-    
-    .hero {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background-color: var(--white);
-      border-radius: 12px;
-      padding: 3rem 2rem;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-      margin-bottom: 3rem;
-      text-align: center;
-    }
-    
-    .hero-title {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: var(--primary-color);
-    }
-    
-    .hero-subtitle {
-      font-size: 1.1rem;
-      color: var(--light-text);
-      margin-bottom: 2rem;
-      max-width: 600px;
-    }
-    
-    .rewards-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-      margin-bottom: 3rem;
-    }
-    
-    .reward-card {
-      background-color: var(--white);
-      border-radius: 12px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      padding: 2rem;
-      width: 100%;
-      max-width: 350px;
-      text-align: center;
-      transition: transform 0.3s;
-    }
-    
-    .reward-card:hover {
-      transform: translateY(-5px);
-    }
-    
-    .reward-icon {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      color: var(--primary-color);
-    }
-    
-    .reward-title {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      color: var(--primary-color);
-    }
-    
-    .reward-desc {
-      color: var(--light-text);
-      margin-bottom: 1.5rem;
-    }
-    
-    .referral-section {
-      background-color: var(--white);
-      border-radius: 12px;
-      padding: 3rem 2rem;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-      margin-bottom: 3rem;
-      text-align: center;
-    }
-    
-    .section-title {
-      font-size: 1.8rem;
-      margin-bottom: 1.5rem;
-      color: var(--primary-color);
-    }
-    
-    .auth-container {
-      max-width: 500px;
-      margin: 0 auto;
-    }
-    
-    .form-group {
-      margin-bottom: 1.5rem;
-      text-align: left;
-    }
-    
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 500;
-    }
-    
-    input {
-      width: 100%;
-      padding: 0.75rem;
-      font-size: 1rem;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      transition: border-color 0.3s;
-    }
-    
-    input:focus {
-      border-color: var(--primary-color);
-      outline: none;
-    }
-    
-    button {
-      background-color: var(--primary-color);
-      color: var(--white);
-      border: none;
-      border-radius: 6px;
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    
-    button:hover {
-      background-color: var(--secondary-color);
-    }
-    
-    .btn-secondary {
-      background-color: var(--light-text);
-    }
-    
-    .btn-secondary:hover {
-      background-color: #7a8599;
-    }
-    
-    .referral-link-container {
-      display: flex;
-      align-items: center;
-      margin: 1.5rem 0;
-      position: relative;
-    }
-    
-    .referral-link {
-      flex: 1;
-      padding: 0.75rem;
-      font-size: 0.9rem;
-      background-color: #f0f2f5;
-      border: 1px solid #ddd;
-      border-radius: 6px 0 0 6px;
-      font-family: monospace;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    
-    .copy-btn {
-      border-radius: 0 6px 6px 0;
-      padding: 0.75rem 1rem;
-      font-size: 0.9rem;
-      background-color: var(--light-text);
-    }
-    
-    .how-it-works {
-      margin-bottom: 3rem;
-    }
-    
-    .steps-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-    
-    .step-card {
-      background-color: var(--white);
-      border-radius: 12px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      padding: 2rem;
-      width: 100%;
-      max-width: 250px;
-      text-align: center;
-      position: relative;
-    }
-    
-    .step-number {
-      position: absolute;
-      top: -15px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: var(--primary-color);
-      color: var(--white);
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-    }
-    
-    .step-title {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin: 1rem 0;
-      color: var(--primary-color);
-    }
-    
-    .step-desc {
-      color: var(--light-text);
-      font-size: 0.9rem;
-    }
-    
-    .stats-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-    
-    .stat-card {
-      background-color: var(--white);
-      border-radius: 12px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      padding: 2rem;
-      width: 100%;
-      max-width: 200px;
-      text-align: center;
-    }
-    
-    .stat-value {
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--primary-color);
-    }
-    
-    .stat-label {
-      color: var(--light-text);
-      margin-top: 0.5rem;
-    }
-    
-    .alert {
-      padding: 1rem;
-      border-radius: 6px;
-      margin-bottom: 1.5rem;
-      text-align: center;
-    }
-    
-    .alert-success {
-      background-color: rgba(74, 222, 128, 0.2);
-      color: #166534;
-    }
-    
-    .alert-error {
-      background-color: rgba(248, 113, 113, 0.2);
-      color: #b91c1c;
-    }
-    
-    .social-share {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 1.5rem;
-    }
-    
-    .social-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--white);
-      font-size: 1.2rem;
-      transition: transform 0.3s;
-    }
-    
-    .social-btn:hover {
-      transform: scale(1.1);
-    }
-    
-    .facebook {
-      background-color: #1877f2;
-    }
-    
-    .twitter {
-      background-color: #1da1f2;
-    }
-    
-    .whatsapp {
-      background-color: #25d366;
-    }
-    
-    .linkedin {
-      background-color: #0077b5;
-    }
-    
-    .hidden {
-      display: none;
-    }
-    
-    .referral-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 2rem;
-    }
-    
-    .referral-table th,
-    .referral-table td {
-      padding: 0.75rem;
-      text-align: left;
-      border-bottom: 1px solid #ddd;
-    }
-    
-    .referral-table th {
-      background-color: #f9fafb;
-      color: var(--primary-color);
-      font-weight: 600;
-    }
-    
-    footer {
-      text-align: center;
-      padding: 2rem 0;
-      color: var(--light-text);
-    }
-    
-    .tabs {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 2rem;
-    }
-    
-    .tab {
-      padding: 0.75rem 1.5rem;
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      transition: all 0.3s;
-    }
-    
-    .tab.active {
-      border-bottom: 2px solid var(--primary-color);
-      color: var(--primary-color);
-      font-weight: 500;
-    }
-    
-    .tab-content {
-      display: none;
-    }
-    
-    .tab-content.active {
-      display: block;
-    }
-    
-    @media (max-width: 768px) {
-      .container {
-        padding: 1rem;
-      }
-      
-      .hero, .referral-section {
-        padding: 2rem 1rem;
-      }
-      
-      .referral-link-container {
-        flex-direction: column;
-      }
-      
-      .referral-link {
-        border-radius: 6px;
-        margin-bottom: 0.5rem;
-      }
-      
-      .copy-btn {
-        border-radius: 6px;
-        width: 100%;
-      }
-    }
-  </style>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messageium Referral System</title>
+    <style>
+        :root {
+            --primary-color: #128C7E;
+            --primary-hover: #0e796e;
+            --secondary-color: #34B7F1;
+            --success-color: #25D366;
+            --warning-color: #FFC107;
+            --danger-color: #FF5252;
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-color: #3b4a54;
+            --secondary-text: #667781;
+            --border-radius-sm: 8px;
+            --border-radius-md: 12px;
+            --box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 8px;
+        }
+
+        nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: var(--border-radius-sm);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .active-nav {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            padding: 20px;
+        }
+
+        .auth-card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--box-shadow);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--secondary-text);
+            transition: var(--transition);
+        }
+
+        .auth-tab.active {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .auth-title {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .form-label {
+            margin-bottom: 8px;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-input {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius-sm);
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(18, 140, 126, 0.1);
+        }
+
+        .auth-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+
+        .auth-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .auth-btn:hover:not(:disabled) {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .auth-footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: var(--secondary-text);
+        }
+
+        .auth-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        #referral-link {
+            color: var(--primary-color);
+            word-break: break-all;
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: var(--border-radius-sm);
+            border: 1px dashed #ddd;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        .dashboard-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius-sm);
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .stat-title {
+            color: var(--secondary-text);
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .stat-card.primary {
+            border-top: 3px solid var(--primary-color);
+        }
+
+        .stat-card.secondary {
+            border-top: 3px solid var(--secondary-color);
+        }
+
+        .stat-card.success {
+            border-top: 3px solid var(--success-color);
+        }
+
+        .link-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .action-btn {
+            padding: 8px 12px;
+            border-radius: var(--border-radius-sm);
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .action-btn.primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .action-btn.secondary {
+            background-color: #f5f5f5;
+            color: var(--text-color);
+            border: 1px solid #ddd;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .action-btn.primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius-sm);
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: 500;
+            color: var(--secondary-text);
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-badge.pending {
+            background-color: #FFF3CD;
+            color: #856404;
+        }
+
+        .status-badge.completed {
+            background-color: #D4EDDA;
+            color: #155724;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            overflow: auto;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            margin: auto;
+            padding: 20px;
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--box-shadow);
+            width: 90%;
+            max-width: 500px;
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from {opacity: 0; transform: translateY(-50px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--secondary-text);
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: var(--border-radius-sm);
+            color: white;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            animation: slideIn 0.3s ease forwards;
+            max-width: 350px;
+        }
+
+        @keyframes slideIn {
+            from {transform: translateX(100%); opacity: 0;}
+            to {transform: translateX(0); opacity: 1;}
+        }
+
+        .notification.success {
+            background-color: var(--success-color);
+        }
+
+        .notification.error {
+            background-color: var(--danger-color);
+        }
+
+        .notification.warning {
+            background-color: var(--warning-color);
+            color: #333;
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .notification-message {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .close-notification {
+            background: none;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+
+        .close-notification:hover {
+            opacity: 1;
+        }
+
+        .payment-method-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .how-it-works-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .step-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius-md);
+            padding: 20px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .step-number {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            font-weight: 600;
+        }
+
+        .step-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .password-input-container {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--secondary-text);
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .auth-card {
+                padding: 20px;
+            }
+            
+            header {
+                padding: 10px 15px;
+            }
+            
+            .logo {
+                font-size: 18px;
+            }
+            
+            nav a {
+                padding: 5px 8px;
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
     <header>
-      <div class="logo">Messageium</div>
-      <p class="tagline">Share the joy of messaging. Earn rewards for every friend who joins.</p>
+        <div class="logo">
+            <i class="fas fa-comment-dots"></i>
+            Messageium Referral
+        </div>
+        <nav>
+            <a href="#" id="dashboard-link">Dashboard</a>
+            <a href="#" id="payments-link">Payments</a>
+            <a href="#" id="how-it-works-link">How It Works</a>
+            <a href="#" id="logout-link" style="display: none;">Logout</a>
+        </nav>
     </header>
     
-    <div class="hero">
-      <h1 class="hero-title">Invite Friends. Earn Rewards.</h1>
-      <p class="hero-subtitle">For every friend that joins Messageium using your referral link, both of you get premium features and special rewards!</p>
-      <button id="get-started-btn">Get Your Referral Link</button>
-    </div>
-    
-    <div class="rewards-container">
-      <div class="reward-card">
-        <div class="reward-icon"><i class="fas fa-crown"></i></div>
-        <h3 class="reward-title">7 Days Premium</h3>
-        <p class="reward-desc">For each successful referral, get 7 days of premium features including ad-free experience and exclusive themes.</p>
-      </div>
-      
-      <div class="reward-card">
-        <div class="reward-icon"><i class="fas fa-gem"></i></div>
-        <h3 class="reward-title">200 Coins</h3>
-        <p class="reward-desc">Earn 200 Messageium coins for each friend who joins. Use them for stickers, emojis, and other in-app purchases.</p>
-      </div>
-      
-      <div class="reward-card">
-        <div class="reward-icon"><i class="fas fa-medal"></i></div>
-        <h3 class="reward-title">Special Badges</h3>
-        <p class="reward-desc">Unlock exclusive profile badges after referring 5, 10, and 25 friends to showcase your referral status.</p>
-      </div>
-    </div>
-    
-    <div id="auth-container" class="referral-section hidden">
-      <div class="tabs">
-        <div class="tab active" data-tab="login">Login</div>
-        <div class="tab" data-tab="register">Register</div>
-      </div>
-      
-      <div id="login-tab" class="tab-content active">
-        <h2 class="section-title">Login to Get Your Referral Link</h2>
-        <div id="login-alert" class="alert hidden"></div>
-        <div class="auth-container">
-          <form id="login-form">
-            <div class="form-group">
-              <label for="login-username">Username or Email</label>
-              <input type="text" id="login-username" required>
+    <div id="login-section" class="auth-container">
+        <div class="auth-card">
+            <div class="auth-tabs">
+                <div class="auth-tab active" id="login-tab">Login</div>
+                <div class="auth-tab" id="register-tab">Register</div>
             </div>
-            <div class="form-group">
-              <label for="login-password">Password</label>
-              <input type="password" id="login-password" required>
-            </div>
-            <button type="submit">Login</button>
-          </form>
-        </div>
-      </div>
-      
-      <div id="register-tab" class="tab-content">
-        <h2 class="section-title">Create an Account</h2>
-        <div id="register-alert" class="alert hidden"></div>
-        <div class="auth-container">
-          <form id="register-form">
-            <div class="form-group">
-              <label for="register-username">Username</label>
-              <input type="text" id="register-username" required>
-            </div>
-            <div class="form-group">
-              <label for="register-email">Email</label>
-              <input type="email" id="register-email" required>
-            </div>
-            <div class="form-group">
-              <label for="register-password">Password</label>
-              <input type="password" id="register-password" required>
-            </div>
-            <div class="form-group">
-              <label for="referral-code">Referral Code (optional)</label>
-              <input type="text" id="referral-code">
-            </div>
-            <button type="submit">Register</button>
-          </form>
-        </div>
-      </div>
-    </div>
-    
-    <div id="dashboard-container" class="referral-section hidden">
-      <h2 class="section-title">Your Referral Dashboard</h2>
-      <div id="dashboard-alert" class="alert hidden"></div>
-      
-      <div class="stats-container">
-        <div class="stat-card">
-          <div class="stat-value" id="referrals-count">0</div>
-          <div class="stat-label">Total Referrals</div>
-        </div>
-        
-        <div class="stat-card">
-          <div class="stat-value" id="rewards-count">0</div>
-          <div class="stat-label">Rewards Earned</div>
-        </div>
-        
-        <div class="stat-card">
-          <div class="stat-value" id="premium-days">0</div>
-          <div class="stat-label">Premium Days</div>
-        </div>
-      </div>
-      
-      <h3 style="margin-top: 2rem;">Your Referral Link</h3>
-      <div class="referral-link-container">
-        <div class="referral-link" id="referral-link"></div>
-        <button class="copy-btn" id="copy-link-btn">Copy</button>
-      </div>
-      
-      <div class="social-share">
-        <a href="#" class="social-btn facebook" id="share-facebook"><i class="fab fa-facebook-f"></i></a>
-        <a href="#" class="social-btn twitter" id="share-twitter"><i class="fab fa-twitter"></i></a>
-        <a href="#" class="social-btn whatsapp" id="share-whatsapp"><i class="fab fa-whatsapp"></i></a>
-        <a href="#" class="social-btn linkedin" id="share-linkedin"><i class="fab fa-linkedin-in"></i></a>
-      </div>
-      
-      <h3 style="margin-top: 2rem;">Your Referrals</h3>
-      <table class="referral-table">
-        <thead>
-          <tr>
-            <th>Username</th>
-            <th>Date Joined</th>
-            <th>Status</th>
-            <th>Reward</th>
-          </tr>
-        </thead>
-        <tbody id="referrals-table">
-          <!-- Will be populated with JS -->
-        </tbody>
-      </table>
-      
-      <button id="logout-btn" style="margin-top: 2rem;">Logout</button>
-    </div>
-    
-    <div class="how-it-works">
-      <h2 class="section-title" style="text-align: center;">How It Works</h2>
-      <div class="steps-container">
-        <div class="step-card">
-          <div class="step-number">1</div>
-          <h3 class="step-title">Get Your Link</h3>
-          <p class="step-desc">Login to your Messageium account and get your unique referral link.</p>
-        </div>
-        
-        <div class="step-card">
-          <div class="step-number">2</div>
-          <h3 class="step-title">Share With Friends</h3>
-          <p class="step-desc">Share your link via social media, email, or direct messages.</p>
-        </div>
-        
-        <div class="step-card">
-          <div class="step-number">3</div>
-          <h3 class="step-title">Friends Join</h3>
-          <p class="step-desc">When your friends click on your link and join Messageium.</p>
-        </div>
-        
-        <div class="step-card">
-          <div class="step-number">4</div>
-          <h3 class="step-title">Earn Rewards</h3>
-          <p class="step-desc">Both you and your friend receive rewards automatically!</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <footer>
-    <p>&copy; 2025 Messageium. All rights reserved.</p>
-  </footer>
-  
-  <script>
-    // Simulated API/Database
-    class ReferralAPI {
-      static baseURL = 'https://messageium.com/api';  // Replace with your actual API base URL
-      
-      // In a real implementation, these would be actual API calls
-      static async login(username, password) {
-        // Simulating an API call
-        return new Promise((resolve, reject) => {
-          setTimeout(() => {
-            // Simulate database lookup
-            const users = this.getUsers();
-            const user = users.find(u => (u.username === username || u.email === username) && u.password === password);
             
-            if (user) {
-              resolve({
-                success: true,
-                user: {
-                  id: user.id,
-                  username: user.username,
-                  email: user.email,
-                  referralCode: user.referralCode,
-                  referrals: user.referrals || [],
-                  rewards: user.rewards || 0,
-                  premiumDays: user.premiumDays || 0
-                }
-              });
-            } else {
-              reject({
-                success: false,
-                message: 'Invalid username or password'
-              });
+            <div id="login-form-container">
+                <h1 class="auth-title">Login to Your Account</h1>
+                <form id="login-form" class="auth-form">
+                    <div class="form-group">
+                        <label for="login-email" class="form-label">Email Address</label>
+                        <input type="email" id="login-email" class="form-input" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password" class="form-label">Password</label>
+                        <div class="password-input-container">
+                            <input type="password" id="login-password" class="form-input" placeholder="Your password" required>
+                            <button type="button" class="toggle-password" id="toggle-login-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit" id="login-btn" class="auth-btn">Login</button>
+                </form>
+                <div class="auth-footer">
+                    <p>Don't have an account? <a href="#" id="go-to-register">Register now</a></p>
+                </div>
+            </div>
+            
+            <div id="register-form-container" style="display: none;">
+                <h1 class="auth-title">Create An Account</h1>
+                <form id="register-form" class="auth-form">
+                    <div class="form-group">
+                        <label for="register-name" class="form-label">Full Name</label>
+                        <input type="text" id="register-name" class="form-input" placeholder="Your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email" class="form-label">Email Address</label>
+                        <input type="email" id="register-email" class="form-input" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-phone" class="form-label">Phone Number</label>
+                        <input type="tel" id="register-phone" class="form-input" placeholder="Your phone number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password" class="form-label">Password</label>
+                        <div class="password-input-container">
+                            <input type="password" id="register-password" class="form-input" placeholder="Create a password" required>
+                            <button type="button" class="toggle-password" id="toggle-register-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-confirm-password" class="form-label">Confirm Password</label>
+                        <div class="password-input-container">
+                            <input type="password" id="register-confirm-password" class="form-input" placeholder="Confirm your password" required>
+                            <button type="button" class="toggle-password" id="toggle-confirm-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="referral-code" class="form-label">Referral Code (Optional)</label>
+                        <input type="text" id="referral-code" class="form-input" placeholder="Enter referral code if you have one">
+                    </div>
+                    <button type="submit" id="register-btn" class="auth-btn">Create Account</button>
+                </form>
+                <div class="auth-footer">
+                    <p>Already have an account? <a href="#" id="go-to-login">Login</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="dashboard-section" class="container" style="display: none;">
+        <div class="dashboard-header">
+            <h2>Welcome, <span id="user-name"></span>!</h2>
+        </div>
+        
+        <div class="stats-container">
+            <div class="stat-card primary">
+                <div class="stat-title">Current Points</div>
+                <div class="stat-value" id="points">0</div>
+            </div>
+            <div class="stat-card secondary">
+                <div class="stat-title">Total Referrals</div>
+                <div class="stat-value" id="referral-count">0</div>
+            </div>
+            <div class="stat-card success">
+                <div class="stat-title">Total Earned</div>
+                <div class="stat-value" id="total-earned">0 LKR</div>
+            </div>
+        </div>
+        
+        <div class="dashboard-card">
+            <h3>Your Referral Link</h3>
+            <div id="referral-link"></div>
+            <div class="link-actions">
+                <button id="copy-link-btn" class="action-btn primary">
+                    <i class="fas fa-copy"></i> Copy Link
+                </button>
+                <button id="share-whatsapp-btn" class="action-btn secondary">
+                    <i class="fab fa-whatsapp"></i> Share on WhatsApp
+                </button>
+                <button id="share-facebook-btn" class="action-btn secondary">
+                    <i class="fab fa-facebook"></i> Share on Facebook
+                </button>
+            </div>
+        </div>
+        
+        <div class="dashboard-card">
+            <div class="dashboard-header">
+                <h3>Your Referrals</h3>
+            </div>
+            <table id="referral-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Date Joined</th>
+                        <th>Status</th>
+                        <th>Points Earned</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        
+        <div class="dashboard-card">
+            <div class="dashboard-header">
+                <h3>Redeem Your Points</h3>
+                <button id="redeem-btn" class="action-btn primary" disabled>
+                    <i class="fas fa-exchange-alt"></i> Redeem Points
+                </button>
+            </div>
+            <p>You need at least 100 points to redeem. Each 100 points = 100 LKR.</p>
+        </div>
+    </div>
+    
+    <div id="payments-section" class="container" style="display: none;">
+        <h2>Payment History</h2>
+        <div class="dashboard-card">
+            <table id="payments-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Method</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div id="how-it-works-section" class="container" style="display: none;">
+        <h2>How It Works</h2>
+        <p>Join our referral program and earn rewards by inviting your friends to Messageium!</p>
+        
+        <div class="how-it-works-container">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <div class="step-title">Sign Up</div>
+                <p>Create your free account and get your unique referral link.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <div class="step-title">Share Your Link</div>
+                <p>Share your referral link with friends through WhatsApp, Facebook, or any platform.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <div class="step-title">Earn Points</div>
+                <p>When someone signs up using your link, you get 10 points instantly.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <div class="step-title">Redeem Rewards</div>
+                <p>Collect 100 points to redeem for 100 LKR via bank transfer.</p>
+            </div>
+        </div>
+        
+        <div class="dashboard-card" style="margin-top: 30px;">
+            <h3>Frequently Asked Questions</h3>
+            <div class="faq-item">
+                <h4>How long does it take to receive my payment?</h4>
+                <p>Payments are processed within 24-48 hours after redemption approval.</p>
+            </div>
+            <div class="faq-item">
+                <h4>What payment methods are available?</h4>
+                <p>We currently support bank transfers for payments.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Is there a limit to how many referrals I can make?</h4>
+                <p>No! You can refer as many friends as you want with no limits.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="admin-section" class="container" style="display: none;">
+        <h2>Admin Dashboard</h2>
+        <div class="dashboard-card">
+            <h3>Pending Payments</h3>
+            <table id="admin-payments-table">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Method</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Redeem Modal -->
+    <div id="redeem-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Redeem Your Points</h3>
+                <button class="close-modal">×</button>
+            </div>
+            <form id="redeem-form" class="payment-method-form">
+                <div class="form-group">
+                    <label class="form-label">Available Points: <span id="modal-available-points">0</span></label>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Points to Redeem:</label>
+                    <input type="number" id="points-to-redeem" class="form-input" min="100" step="100" value="100">
+                    <small>Minimum 100 points (100 LKR)</small>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Payment Method: Bank Transfer</label>
+                </div>
+                <div id="bank-details" class="payment-details">
+                    <div class="form-group">
+                        <label for="bank-name" class="form-label">Bank Name</label>
+                        <input type="text" id="bank-name" class="form-input" placeholder="Enter your bank name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="account-number" class="form-label">Account Number</label>
+                        <input type="text" id="account-number" class="form-input" placeholder="Enter your account number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="account-holder" class="form-label">Account Holder Name</label>
+                        <input type="text" id="account-holder" class="form-input" placeholder="Enter account holder name" required>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="action-btn secondary close-modal-btn">Cancel</button>
+                    <button type="submit" class="action-btn primary">Confirm Redemption</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <script>
+        let users = {
+            "admin@example.com": {
+                id: "admin",
+                name: "Admin",
+                email: "admin@example.com",
+                password: "adminpass",
+                role: "admin"
+            },
+            "user1@example.com": {
+                id: "user1",
+                name: "John Smith",
+                email: "user1@example.com",
+                password: "password123",
+                phone: "+94771234567",
+                points: 130,
+                totalEarned: 200,
+                paymentHistory: [
+                    { date: "2025-01-15", amount: 100, method: "Bank Transfer", status: "Completed" },
+                    { date: "2025-02-20", amount: 100, method: "Bank Transfer", status: "Completed" }
+                ],
+                referrals: [
+                    { name: "Alice Johnson", date: "2025-01-10", status: "Completed", points: 10 },
+                    { name: "Bob Williams", date: "2025-02-15", status: "Completed", points: 10 }
+                ],
+                referralCode: "JOHN123"
             }
-          }, 500);
-        });
-      }
-      
-      static async register(username, email, password, referralCode = null) {
-        return new Promise((resolve, reject) => {
-          setTimeout(() => {
-            const users = this.getUsers();
+        };
+
+        let currentUser = null;
+
+        function generateReferralCode(name) {
+            const prefix = name.substring(0, 4).toUpperCase();
+            const randomNum = Math.floor(Math.random() * 9000) + 1000;
+            return prefix + randomNum;
+        }
+
+        function showSection(sectionId) {
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('dashboard-section').style.display = 'none';
+            document.getElementById('payments-section').style.display = 'none';
+            document.getElementById('how-it-works-section').style.display = 'none';
+            document.getElementById('admin-section').style.display = 'none';
             
-            // Check if username or email already exists
-            if (users.some(u => u.username === username)) {
-              reject({
-                success: false,
-                message: 'Username already exists'
-              });
-              return;
-            }
+            document.getElementById(sectionId).style.display = 'block';
             
-            if (users.some(u => u.email === email)) {
-              reject({
-                success: false,
-                message: 'Email already exists'
-              });
-              return;
-            }
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('active-nav');
+            });
             
-            // Create new user
-            const newUser = {
-              id: Date.now().toString(),
-              username,
-              email,
-              password,
-              referralCode: this.generateReferralCode(username),
-              referrals: [],
-              rewards: 0,
-              premiumDays: 0,
-              joinDate: new Date().toISOString()
+            const navMap = {
+                'dashboard-section': 'dashboard-link',
+                'payments-section': 'payments-link',
+                'how-it-works-section': 'how-it-works-link'
             };
             
-            // Handle referral if code was provided
-            let referrer = null;
-            if (referralCode) {
-              referrer = users.find(u => u.referralCode === referralCode);
-              if (referrer) {
-                // Update referrer
-                referrer.referrals = referrer.referrals || [];
-                referrer.referrals.push({
-                  userId: newUser.id,
-                  username: newUser.username,
-                  joinDate: newUser.joinDate,
-                  status: 'completed'
-                });
-                
-                // Award rewards to referrer
-                referrer.rewards = (referrer.rewards || 0) + 200;
-                referrer.premiumDays = (referrer.premiumDays || 0) + 7;
-                
-                // Award rewards to new user
-                newUser.rewards = 100;
-                newUser.premiumDays = 3;
-                newUser.referredBy = referrer.id;
-                
-                // Update referrer in "database"
-                const referrerIndex = users.findIndex(u => u.id === referrer.id);
-                if (referrerIndex !== -1) {
-                  users[referrerIndex] = referrer;
-                }
-              }
+            if (navMap[sectionId]) {
+                document.getElementById(navMap[sectionId]).classList.add('active-nav');
+            }
+        }
+
+        function showLoginTab() {
+            document.getElementById('login-form-container').style.display = 'block';
+            document.getElementById('register-form-container').style.display = 'none';
+            document.getElementById('login-tab').classList.add('active');
+            document.getElementById('register-tab').classList.remove('active');
+        }
+
+        function showRegisterTab() {
+            document.getElementById('login-form-container').style.display = 'none';
+            document.getElementById('register-form-container').style.display = 'block';
+            document.getElementById('login-tab').classList.remove('active');
+            document.getElementById('register-tab').classList.add('active');
+        }
+
+        function showNotification(type, title, message) {
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) {
+                existingNotification.remove();
             }
             
-            // Save new user
-            users.push(newUser);
-            this.saveUsers(users);
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <div class="notification-title">${title}</div>
+                    <div class="notification-message">${message}</div>
+                </div>
+                <button class="close-notification">×</button>
+            `;
             
-            resolve({
-              success: true,
-              user: {
-                id: newUser.id,
-                username: newUser.username,
-                email: newUser.email,
-                referralCode: newUser.referralCode,
-                referrals: [],
-                rewards: newUser.rewards,
-                premiumDays: newUser.premiumDays
-              },
-              wasReferred: referrer !== null
-            });
-          }, 500);
-        });
-      }
-      
-      static async getUserReferrals(userId) {
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            const users = this.getUsers();
-            const user = users.find(u => u.id === userId);
+            document.body.appendChild(notification);
             
-            if (user && user.referrals) {
-              resolve({
-                success: true,
-                referrals: user.referrals
-              });
-            } else {
-              resolve({
-                success: true,
-                referrals: []
-              });
-            }
-          }, 300);
-        });
-      }
-      
-      static generateReferralCode(username) {
-        const randomStr = Math.random().toString(36).substring(2, 8);
-        return `${username.substring(0, 3)}${randomStr}`.toLowerCase();
-      }
-      
-      // Local storage methods (simulating database)
-      static getUsers() {
-        return JSON.parse(localStorage.getItem('messageium_users')) || [];
-      }
-      
-      static saveUsers(users) {
-        localStorage.setItem('messageium_users', JSON.stringify(users));
-      }
-      
-      static getCurrentUser() {
-        return JSON.parse(localStorage.getItem('messageium_current_user')) || null;
-      }
-      
-      static setCurrentUser(user) {
-        localStorage.setItem('messageium_current_user', JSON.stringify(user));
-      }
-      
-      static clearCurrentUser() {
-        localStorage.removeItem('messageium_current_user');
-      }
-    }
-    
-    // Helper functions
-    function showAlert(elementId, message, type) {
-      const alertElement = document.getElementById(elementId);
-      alertElement.textContent = message;
-      alertElement.className = `alert alert-${type}`;
-      alertElement.classList.remove('hidden');
-      
-      setTimeout(() => {
-        alertElement.classList.add('hidden');
-      }, 5000);
-    }
-    
-    function switchTab(tabId) {
-      // Hide all tab contents
-      document.querySelectorAll('.tab-content').forEach(tab => {
-        tab.classList.remove('active');
-      });
-      
-      // Deactivate all tabs
-      document.querySelectorAll('.tab').forEach(tab => {
-        tab.classList.remove('active');
-      });
-      
-      // Activate selected tab
-      document.getElementById(`${tabId}-tab`).classList.add('active');
-      document.querySelector(`.tab[data-tab="${tabId}"]`).classList.add('active');
-    }
-    
-    function updateDashboard(user) {
-      document.getElementById('referrals-count').textContent = user.referrals.length;
-      document.getElementById('rewards-count').textContent = user.rewards;
-      document.getElementById('premium-days').textContent = user.premiumDays;
-      
-      // Set referral link
-      const referralLink = `https://referral.messageium.com/?ref=${user.referralCode}`;
-      document.getElementById('referral-link').textContent = referralLink;
-      
-      // Update social share links
-      const shareText = encodeURIComponent('Join me on Messageium! Use my referral link to get 3 days of premium features and 100 coins: ');
-      document.getElementById('share-facebook').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(referralLink)}`;
-      document.getElementById('share-twitter').href = `https://twitter.com/intent/tweet?text=${shareText}&url=${encodeURIComponent(referralLink)}`;
-      document.getElementById('share-whatsapp').href = `https://wa.me/?text=${shareText}${encodeURIComponent(referralLink)}`;
-      document.getElementById('share-linkedin').href = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(referralLink)}`;
-      
-      // Populate referrals table
-      const referralsTable = document.getElementById('referrals-table');
-      referralsTable.innerHTML = '';
-      
-      if (user.referrals.length === 0) {
-        const row = document.createElement('tr');
-        const cell = document.createElement('td');
-        cell.colSpan = 4;
-        cell.textContent = 'You have no referrals yet. Share your link to start earning rewards!';
-        cell.style.textAlign = 'center';
-        row.appendChild(cell);
-        referralsTable.appendChild(row);
-      } else {
-        user.referrals.forEach(referral => {
-          const row = document.createElement('tr');
-          
-          const usernameCell = document.createElement('td');
-          usernameCell.textContent = referral.username;
-          
-          const dateCell = document.createElement('td');
-          dateCell.textContent = new Date(referral.joinDate).toLocaleDateString();
-          
-          const statusCell = document.createElement('td');
-          statusCell.textContent = referral.status;
-          if (referral.status === 'completed') {
-            statusCell.style.color = '#4ade80';
-          }
-          
-          const rewardCell = document.createElement('td');
-          rewardCell.textContent = '200 coins + 7 days premium';
-          
-          row.appendChild(usernameCell);
-          row.appendChild(dateCell);
-          row.appendChild(statusCell);
-          row.appendChild(rewardCell);
-          
-          referralsTable.appendChild(row);
-        });
-      }
-    }
-    
-    function showAuthOrDashboard() {
-      const currentUser = ReferralAPI.getCurrentUser();
-      
-      if (currentUser) {
-        // Hide auth container, show dashboard
-        document.getElementById('auth-container').classList.add('hidden');
-        document.getElementById('dashboard-container').classList.remove('hidden');
-        
-        // Update dashboard with user data
-        ReferralAPI.getUserReferrals(currentUser.id).then(response => {
-          if (response.success) {
-            currentUser.referrals = response.referrals;
-            updateDashboard(currentUser);
-          }
-        });
-      } else {
-        // Hide dashboard, show auth
-        document.getElementById('dashboard-container').classList.add('hidden');
-        document.getElementById('auth-container').classList.remove('hidden');
-      }
-    }
-    
-    function checkRefCodeInUrl() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const refCode = urlParams.get('ref');
-      
-      if (refCode) {
-        document.getElementById('referral-code').value = refCode;
-        // Switch to register tab if there// Switch to register tab if there's a referral code in URL
-        switchTab('register');
-      }
-    }
-    
-    // Event Listeners
-    document.addEventListener('DOMContentLoaded', () => {
-      // Initial setup
-      showAuthOrDashboard();
-      checkRefCodeInUrl();
-      
-      // Get started button
-      document.getElementById('get-started-btn').addEventListener('click', () => {
-        document.getElementById('auth-container').scrollIntoView({ behavior: 'smooth' });
-      });
-      
-      // Tab switching
-      document.querySelectorAll('.tab').forEach(tab => {
-        tab.addEventListener('click', () => {
-          switchTab(tab.getAttribute('data-tab'));
-        });
-      });
-      
-      // Login form
-      document.getElementById('login-form').addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        const username = document.getElementById('login-username').value;
-        const password = document.getElementById('login-password').value;
-        
-        ReferralAPI.login(username, password)
-          .then(response => {
-            if (response.success) {
-              ReferralAPI.setCurrentUser(response.user);
-              showAuthOrDashboard();
-              showAlert('dashboard-alert', 'Successfully logged in!', 'success');
-            }
-          })
-          .catch(error => {
-            showAlert('login-alert', error.message, 'error');
-          });
-      });
-      
-      // Register form
-      document.getElementById('register-form').addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        const username = document.getElementById('register-username').value;
-        const email = document.getElementById('register-email').value;
-        const password = document.getElementById('register-password').value;
-        const referralCode = document.getElementById('referral-code').value;
-        
-        ReferralAPI.register(username, email, password, referralCode)
-          .then(response => {
-            if (response.success) {
-              ReferralAPI.setCurrentUser(response.user);
-              showAuthOrDashboard();
-              
-              if (response.wasReferred) {
-                showAlert('dashboard-alert', 'Account created! You received 100 coins and 3 days of premium for being referred!', 'success');
-              } else {
-                showAlert('dashboard-alert', 'Account created successfully!', 'success');
-              }
-            }
-          })
-          .catch(error => {
-            showAlert('register-alert', error.message, 'error');
-          });
-      });
-      
-      // Copy referral link
-      document.getElementById('copy-link-btn').addEventListener('click', () => {
-        const referralLink = document.getElementById('referral-link').textContent;
-        navigator.clipboard.writeText(referralLink)
-          .then(() => {
-            document.getElementById('copy-link-btn').textContent = 'Copied!';
             setTimeout(() => {
-              document.getElementById('copy-link-btn').textContent = 'Copy';
-            }, 2000);
-          })
-          .catch(err => {
-            showAlert('dashboard-alert', 'Failed to copy link: ' + err, 'error');
-          });
-      });
-      
-      // Logout
-      document.getElementById('logout-btn').addEventListener('click', () => {
-        ReferralAPI.clearCurrentUser();
-        showAuthOrDashboard();
-      });
-      
-      // Social share links
-      document.querySelectorAll('.social-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.preventDefault();
-          window.open(btn.href, 'share', 'width=600,height=400');
+                notification.remove();
+            }, 5000);
+            
+            notification.querySelector('.close-notification').addEventListener('click', () => {
+                notification.remove();
+            });
+        }
+
+        function updateDashboard() {
+            if (!currentUser) return;
+            
+            document.getElementById('user-name').textContent = currentUser.name;
+            document.getElementById('points').textContent = currentUser.points;
+            document.getElementById('referral-count').textContent = currentUser.referrals ? currentUser.referrals.length : 0;
+            document.getElementById('total-earned').textContent = `${currentUser.totalEarned} LKR`;
+            
+            const referralLink = `https://referral.messageium.com/refer/${currentUser.referralCode}`;
+            document.getElementById('referral-link').textContent = referralLink;
+            
+            const referralTable = document.querySelector('#referral-table tbody');
+            referralTable.innerHTML = '';
+            
+            if (currentUser.referrals && currentUser.referrals.length > 0) {
+                currentUser.referrals.forEach(referral => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${referral.name}</td>
+                        <td>${referral.date}</td>
+                        <td><span class="status-badge ${referral.status.toLowerCase()}">${referral.status}</span></td>
+                        <td>${referral.points}</td>
+                    `;
+                    referralTable.appendChild(row);
+                });
+            } else {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td colspan="4" style="text-align: center;">No referrals yet</td>`;
+                referralTable.appendChild(row);
+            }
+            
+            const redeemBtn = document.getElementById('redeem-btn');
+            if (currentUser.points >= 100) {
+                redeemBtn.removeAttribute('disabled');
+            } else {
+                redeemBtn.setAttribute('disabled', 'disabled');
+            }
+        }
+
+        function updatePayments() {
+            if (!currentUser) return;
+            
+            const paymentsTable = document.querySelector('#payments-table tbody');
+            paymentsTable.innerHTML = '';
+            
+            if (currentUser.paymentHistory && currentUser.paymentHistory.length > 0) {
+                currentUser.paymentHistory.forEach(payment => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${payment.date}</td>
+                        <td>${payment.amount} LKR</td>
+                        <td>${payment.method}</td>
+                        <td><span class="status-badge ${payment.status.toLowerCase()}">${payment.status}</span></td>
+                    `;
+                    paymentsTable.appendChild(row);
+                });
+            } else {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td colspan="4" style="text-align: center;">No payment history</td>`;
+                paymentsTable.appendChild(row);
+            }
+        }
+
+        function showAdminDashboard() {
+            showSection('admin-section');
+            
+            const paymentsTable = document.querySelector('#admin-payments-table tbody');
+            paymentsTable.innerHTML = '';
+            
+            let hasPending = false;
+            
+            for (const userEmail in users) {
+                const user = users[userEmail];
+                if (user.paymentHistory) {
+                    user.paymentHistory.forEach((payment, index) => {
+                        if (payment.status === "Pending") {
+                            hasPending = true;
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>${user.name}</td>
+                                <td>${payment.date}</td>
+                                <td>${payment.amount} LKR</td>
+                                <td>${payment.method}</td>
+                                <td><span class="status-badge pending">${payment.status}</span></td>
+                                <td>
+                                    <button class="action-btn primary" onclick="updatePaymentStatus('${user.id}', ${index}, 'Completed')">Mark as Completed</button>
+                                </td>
+                            `;
+                            paymentsTable.appendChild(row);
+                        }
+                    });
+                }
+            }
+            
+            if (!hasPending) {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td colspan="6" style="text-align: center;">No pending payments</td>`;
+                paymentsTable.appendChild(row);
+            }
+        }
+
+        function updatePaymentStatus(userId, paymentIndex, newStatus) {
+            const user = Object.values(users).find(u => u.id === userId);
+            if (user && user.paymentHistory[paymentIndex]) {
+                user.paymentHistory[paymentIndex].status = newStatus;
+                showNotification('success', 'Success', `Payment status updated to ${newStatus}`);
+                showAdminDashboard();
+            }
+        }
+
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            if (users[email] && users[email].password === password) {
+                currentUser = users[email];
+                document.getElementById('logout-link').style.display = 'block';
+                if (currentUser.role === "admin") {
+                    showAdminDashboard();
+                } else {
+                    updateDashboard();
+                    showSection('dashboard-section');
+                }
+                showNotification('success', 'Success', 'You have been logged in successfully!');
+            } else {
+                showNotification('error', 'Error', 'Invalid email or password.');
+            }
         });
-      });
-    });
-  </script>
+
+        document.getElementById('register-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const phone = document.getElementById('register-phone').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm-password').value;
+            const referralCode = document.getElementById('referral-code').value;
+            
+            if (password !== confirmPassword) {
+                showNotification('error', 'Error', 'Passwords do not match.');
+                return;
+            }
+            
+            if (users[email]) {
+                showNotification('error', 'Error', 'Email already registered.');
+                return;
+            }
+            
+            const userId = 'user' + (Object.keys(users).length + 1);
+            const newReferralCode = generateReferralCode(name);
+            
+            users[email] = {
+                id: userId,
+                name: name,
+                email: email,
+                password: password,
+                phone: phone,
+                points: 0,
+                totalEarned: 0,
+                paymentHistory: [],
+                referrals: [],
+                referralCode: newReferralCode
+            };
+            
+            if (referralCode) {
+                let referrer = null;
+                for (const userEmail in users) {
+                    if (users[userEmail].referralCode === referralCode) {
+                        referrer = users[userEmail];
+                        break;
+                    }
+                }
+                
+                if (referrer) {
+                    referrer.points += 10;
+                    if (!referrer.referrals) {
+                        referrer.referrals = [];
+                    }
+                    const today = new Date();
+                    const dateStr = today.toISOString().split('T')[0];
+                    referrer.referrals.push({
+                        name: name,
+                        date: dateStr,
+                        status: "Completed",
+                        points: 10
+                    });
+                    showNotification('success', 'Success', 'Account created! Referral bonus applied.');
+                } else {
+                    showNotification('warning', 'Warning', 'Invalid referral code, but account created successfully.');
+                }
+            } else {
+                showNotification('success', 'Success', 'Account created successfully!');
+            }
+            
+            currentUser = users[email];
+            document.getElementById('logout-link').style.display = 'block';
+            updateDashboard();
+            showSection('dashboard-section');
+        });
+
+        document.getElementById('copy-link-btn').addEventListener('click', function() {
+            const referralLink = document.getElementById('referral-link').textContent;
+            navigator.clipboard.writeText(referralLink).then(() => {
+                showNotification('success', 'Copied!', 'Referral link copied to clipboard.');
+            });
+        });
+
+        document.getElementById('share-whatsapp-btn').addEventListener('click', function() {
+            const referralLink = document.getElementById('referral-link').textContent;
+            const whatsappUrl = `https://wa.me/?text=Join Messageium using my referral link: ${encodeURIComponent(referralLink)}`;
+            window.open(whatsappUrl, '_blank');
+        });
+
+        document.getElementById('share-facebook-btn').addEventListener('click', function() {
+            const referralLink = document.getElementById('referral-link').textContent;
+            const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(referralLink)}`;
+            window.open(facebookUrl, '_blank');
+        });
+
+        document.getElementById('toggle-login-password').addEventListener('click', function() {
+            const passwordField = document.getElementById('login-password');
+            const icon = this.querySelector('i');
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                icon.className = 'fas fa-eye-slash';
+            } else {
+                passwordField.type = 'password';
+                icon.className = 'fas fa-eye';
+            }
+        });
+
+        document.getElementById('toggle-register-password').addEventListener('click', function() {
+            const passwordField = document.getElementById('register-password');
+            const icon = this.querySelector('i');
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                icon.className = 'fas fa-eye-slash';
+            } else {
+                passwordField.type = 'password';
+                icon.className = 'fas fa-eye';
+            }
+        });
+
+        document.getElementById('toggle-confirm-password').addEventListener('click', function() {
+            const passwordField = document.getElementById('register-confirm-password');
+            const icon = this.querySelector('i');
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                icon.className = 'fas fa-eye-slash';
+            } else {
+                passwordField.type = 'password';
+                icon.className = 'fas fa-eye';
+            }
+        });
+
+        document.getElementById('redeem-btn').addEventListener('click', function() {
+            if (currentUser.points < 100) {
+                showNotification('warning', 'Warning', 'You need at least 100 points to redeem.');
+                return;
+            }
+            
+            document.getElementById('modal-available-points').textContent = currentUser.points;
+            document.getElementById('points-to-redeem').max = currentUser.points;
+            document.getElementById('points-to-redeem').value = Math.min(100, currentUser.points);
+            document.getElementById('redeem-modal').style.display = 'flex';
+        });
+
+        document.querySelectorAll('.close-modal, .close-modal-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.getElementById('redeem-modal').style.display = 'none';
+            });
+        });
+
+        document.getElementById('redeem-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const pointsToRedeem = parseInt(document.getElementById('points-to-redeem').value);
+            
+            if (pointsToRedeem < 100) {
+                showNotification('warning', 'Warning', 'Minimum redemption is 100 points.');
+                return;
+            }
+            
+            if (pointsToRedeem > currentUser.points) {
+                showNotification('error', 'Error', 'You don\'t have enough points.');
+                return;
+            }
+            
+            const bankName = document.getElementById('bank-name').value;
+            const accountNumber = document.getElementById('account-number').value;
+            const accountHolder = document.getElementById('account-holder').value;
+            
+            if (!bankName || !accountNumber || !accountHolder) {
+                showNotification('warning', 'Warning', 'Please fill in all bank details.');
+                return;
+            }
+            
+            const methodName = 'Bank Transfer';
+            
+            currentUser.points -= pointsToRedeem;
+            currentUser.totalEarned += pointsToRedeem;
+            
+            const today = new Date();
+            const dateStr = today.toISOString().split('T')[0];
+            
+            if (!currentUser.paymentHistory) {
+                currentUser.paymentHistory = [];
+            }
+            
+            currentUser.paymentHistory.push({
+                date: dateStr,
+                amount: pointsToRedeem,
+                method: methodName,
+                status: "Pending",
+                details: { bankName, accountNumber, accountHolder }
+            });
+            
+            const formData = new FormData();
+            formData.append('access_key', 'b436bd63-068e-4d87-9b03-9bf8165d6d2a');
+            formData.append('subject', 'New Redemption Request');
+            formData.append('from_name', 'Messageium Referral System');
+            formData.append('name', currentUser.name);
+            formData.append('email', currentUser.email);
+            formData.append('points_redeemed', pointsToRedeem);
+            formData.append('amount', pointsToRedeem + ' LKR');
+            formData.append('payment_method', methodName);
+            formData.append('bank_name', bankName);
+            formData.append('account_number', accountNumber);
+            formData.append('account_holder', accountHolder);
+            
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showNotification('success', 'Success', 'Redemption request submitted successfully!');
+                } else {
+                    showNotification('error', 'Error', 'Failed to submit redemption request. Please try again.');
+                }
+            })
+            .catch(error => {
+                showNotification('error', 'Error', 'An error occurred while submitting the request.');
+            });
+            
+            document.getElementById('redeem-modal').style.display = 'none';
+            updateDashboard();
+            updatePayments();
+        });
+
+        document.getElementById('dashboard-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            if (currentUser) {
+                updateDashboard();
+                showSection('dashboard-section');
+            } else {
+                showNotification('warning', 'Warning', 'Please log in first.');
+            }
+        });
+
+        document.getElementById('payments-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            if (currentUser) {
+                updatePayments();
+                showSection('payments-section');
+            } else {
+                showNotification('warning', 'Warning', 'Please log in first.');
+            }
+        });
+
+        document.getElementById('how-it-works-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            showSection('how-it-works-section');
+        });
+
+        document.getElementById('logout-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            currentUser = null;
+            document.getElementById('logout-link').style.display = 'none';
+            showSection('login-section');
+            showNotification('success', 'Success', 'You have been logged out successfully!');
+        });
+
+        document.getElementById('login-tab').addEventListener('click', showLoginTab);
+        document.getElementById('register-tab').addEventListener('click', showRegisterTab);
+        document.getElementById('go-to-register').addEventListener('click', showRegisterTab);
+        document.getElementById('go-to-login').addEventListener('click', showLoginTab);
+    </script>
 </body>
 </html>
